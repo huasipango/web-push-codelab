@@ -27,8 +27,17 @@ const pushButton = document.querySelector('.js-push-btn');
 
 const applicationServerPublicKey = 'BEZN7-RumlXEOFQy_Ank-uOvdisPfI9v85xcqQmhuyKilxf4SmhtB7pDzLHtk29Z-qFiPZehRqg0O4z6p2OoE04';
 
+var usersId = location.search.split('users=')[1];
+
+console.log("id"+usersId)
 let isSubscribed = false;
 let swRegistration = null;
+
+
+
+
+
+//subscriptions functions
 
 function urlB64ToUint8Array(base64String) {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -69,6 +78,7 @@ function initialiseUI() {
       // TODO: Unsubscribe user
     } else {
       subscribeUser();
+     
     }
   });
 
@@ -117,10 +127,12 @@ function subscribeUser() {
     console.log('User is subscribed:', subscription);
 
     updateSubscriptionOnServer(subscription);
-
+    
     isSubscribed = true;
 
     updateBtn();
+
+    insertSubcription(subscription)
   })
   .catch(function(err) {
     console.log('Failed to subscribe the user: ', err);
@@ -136,8 +148,15 @@ function updateSubscriptionOnServer(subscription) {
     document.querySelector('.js-subscription-details');
 
   if (subscription) {
-    subscriptionJson.textContent = JSON.stringify(subscription);
+    
+    var sus = JSON.stringify(subscription)
+    var obj = JSON.parse(sus)
+    obj = {...obj,id : "1"}
+    sus = JSON.stringify(obj)
+    subscriptionJson.textContent = sus;
     subscriptionDetails.classList.remove('is-invisible');
+
+
   } else {
     subscriptionDetails.classList.add('is-invisible');
   }
@@ -171,3 +190,48 @@ function unsubscribeUser() {
     updateBtn();
   });
 }
+
+
+
+////Consumir de la api
+
+
+//1 ) consultar usuario
+function getUsuairio() {
+  var request = new XMLHttpRequest();
+  //obtener el id de la url
+  
+  //consulta de usuario por id en el servidor
+  request.open('GET', 'http://169.62.217.179:5000/users/'+usersId, true);
+  request.onload = function () {
+  var data = JSON.parse(this.response);
+
+      if (request.status >= 200 && request.status < 400) {
+     
+          console.log(data)
+     
+         
+ 
+      } else {
+          console.log('error');
+      }
+      
+  }
+  request.send();
+
+}
+
+///2) guardar la clave de subcripcion
+
+function insertSubcription(suscription){
+    var request = require('request');
+    var strSubs = JSON.stringify(suscription)
+    request.post({
+    url: 'http://localhost:5000/adduser',
+    body: strSubs,
+    json: true
+  }, function(error, response, body){
+    console.log(response);
+  });
+}
+

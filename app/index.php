@@ -1,3 +1,6 @@
+<?php 
+    $user = $_GET['users'];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +19,7 @@
 <body>
 
   <header>
-    <h1>Push Codelab</h1>
+    <h1>Push </h1>
   </header>
 
   <main>
