@@ -131,7 +131,7 @@ function subscribeUser() {
     isSubscribed = true;
 
     updateBtn();
-
+    //insert in bd
     insertSubcription(subscription)
   })
   .catch(function(err) {
@@ -150,9 +150,7 @@ function updateSubscriptionOnServer(subscription) {
   if (subscription) {
     
     var sus = JSON.stringify(subscription)
-    var obj = JSON.parse(sus)
-    obj = {...obj,id : "1"}
-    sus = JSON.stringify(obj)
+    
     subscriptionJson.textContent = sus;
     subscriptionDetails.classList.remove('is-invisible');
 
@@ -223,15 +221,27 @@ function getUsuairio() {
 
 ///2) guardar la clave de subcripcion
 
-function insertSubcription(suscription){
-    var request = require('request');
-    var strSubs = JSON.stringify(suscription)
-    request.post({
-    url: 'http://localhost:5000/adduser',
-    body: strSubs,
-    json: true
-  }, function(error, response, body){
-    console.log(response);
+function insertSubcription(subscription){
+    var str = JSON.stringify(subscription);
+    var data = JSON.parse(str);
+    $.ajax({
+      url: "http://localhost:5000/adduser/",
+      type: "POST",
+      data: data,
+      dataType: "json",
+      success: function (result) {
+          switch (result) {
+              case true:
+                  processResponse(result);
+                  break;
+              default:
+                  resultDiv.html(result);
+          }
+      },
+      error: function (xhr, ajaxOptions, thrownError) {
+      alert(xhr.status);
+      alert(thrownError);
+      }
   });
 }
 

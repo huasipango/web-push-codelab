@@ -1,5 +1,9 @@
 
 const express = require('express');
+var cors = require('cors');
+const bodyParser = require('body-parser');
+
+// use it before all route definitions
 
 // Set up the express app
 const app = express();
@@ -12,10 +16,11 @@ const pool = mysql.createPool ({
     password: '60272c99',
     database: 'heroku_e97bdfc7b2fa764',
 });
+app.use(cors({origin: '*'}));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 
-// get users
-app.get("/users/:id", (req,res) => {
-
+app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', '*');
 
@@ -28,6 +33,12 @@ app.get("/users/:id", (req,res) => {
     // Set to true if you need the website to include cookies in the requests sent
     // to the API (e.g. in case you use sessions)
     res.setHeader('Access-Control-Allow-Credentials', true);
+    next();
+  });
+// get users
+app.get("/users/:id", (req,res) => {
+
+    
 
     console.log("Devolviendo usuario con id: " + req.params.id)
     
@@ -48,8 +59,10 @@ app.get("/users/:id", (req,res) => {
 })
 
 app.post("/adduser", (req, res) => {
-    var subcription = req.body.subcription;
- 
+
+   
+    var subcription = JSON.stringify(req.body);
+    console.log("subs"+subcription);
     if(subcription){
         pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subcription], (err, rows, fields) => {
             if(err)
