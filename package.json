@@ -18,5 +18,8 @@
   "bugs": {
     "url": "https://github.com/GoogleChrome/push-notifications/issues"
   },
-  "homepage": "https://github.com/GoogleChrome/push-notifications#readme"
+  "homepage": "https://github.com/GoogleChrome/push-notifications#readme",
+  "dependencies": {
+    "jQuery": "^1.7.4"
+  }
 }
