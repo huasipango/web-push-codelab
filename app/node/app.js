@@ -4,6 +4,7 @@ const express = require('express');
 // Set up the express app
 const app = express();
 const PORT = 5000;
+const mysql = require('mysql');
 const pool = mysql.createPool ({
     connectionLimit : 10,
     host: 'us-cdbr-iron-east-03.cleardb.net',

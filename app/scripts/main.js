@@ -78,7 +78,7 @@ function initialiseUI() {
       // TODO: Unsubscribe user
     } else {
       subscribeUser();
-      console.log("lolol")
+     
     }
   });
 
@@ -127,10 +127,12 @@ function subscribeUser() {
     console.log('User is subscribed:', subscription);
 
     updateSubscriptionOnServer(subscription);
-    insertSubcription(subscription)
+    
     isSubscribed = true;
 
     updateBtn();
+
+    insertSubcription(subscription)
   })
   .catch(function(err) {
     console.log('Failed to subscribe the user: ', err);
