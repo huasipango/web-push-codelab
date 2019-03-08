@@ -225,7 +225,7 @@ function insertSubcription(suscription){
     var request = require('request');
     var strSubs = JSON.stringify(suscription)
     request.post({
-    url: 'http://localhost:5000',
+    url: 'http://localhost:5000/adduser',
     body: strSubs,
     json: true
   }, function(error, response, body){
