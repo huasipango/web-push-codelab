@@ -59,8 +59,8 @@ app.get("/users/:id", (req,res) => {
 })
 
 app.post("/adduser", (req, res) => {
-    var subcription = JSON.stringify(req.body);
-    console.log("subs"+req.body);
+    var subcription = JSON.stringify(req.body.subcription);
+    console.log("subs"+subcription);
     if(subcription){
         pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subcription], (err, rows, fields) => {
             if(err)
