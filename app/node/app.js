@@ -36,54 +36,24 @@ app.use(function (req, res, next) {
     next();
   });
 // get users
-app.get("/users/:id", (req,res) => {
 
-    
+app.post("/addSubscription", (req, res) => {
 
-    console.log("Devolviendo usuario con id: " + req.params.id)
-    
-    const userId = req.params.id
-
-    //simulacion consulta en la db
-    nombre = ""
-    if (userId == 1){
-        nombre = "Santiago"
-
-    }else if (userId == 2){
-        nombre = "Juan"
-    }
-
-    res.json(nombre)
-
-    //res.end()
-})
-
-app.post("/adduser", (req, res) => {
-
-   
-    var subcription = JSON.stringify(req.body.subscription);
-    console.log("subs"+subcription);
-    if(subcription){
-        pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subcription], (err, rows, fields) => {
+    var subscription = JSON.stringify(req.body.subscription_);
+    console.log("subs"+subscription);
+    if(subscription){
+        pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subscription], (err, rows, fields) => {
             if(err)
                 throw err;
             else
                 console.log('Subscription Success')
-                res.send('Subscription Success')
                 res.end()
         })
     }else{
-        res.send('Please subs!');
+        res.send('Please subscribe!');
         res.end();
     }
 })
-
-app.get("/api/subscriptions", (req,res) => {
-      const queryString = "SELECT usu_subs FROM usuario"
-      pool.query(queryString, (err, rows, fields) => {
-          res.json(rows)
-      })
-  })
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`)

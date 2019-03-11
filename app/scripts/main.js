@@ -25,17 +25,10 @@
 
 const pushButton = document.querySelector('.js-push-btn');
 
-const applicationServerPublicKey = 'BEZN7-RumlXEOFQy_Ank-uOvdisPfI9v85xcqQmhuyKilxf4SmhtB7pDzLHtk29Z-qFiPZehRqg0O4z6p2OoE04';
+const applicationServerPublicKey = 'BB7THvJM3x1rj9vA_10coJD3hC24L2_oXCbLlhJLGs261kQTcNpF28OcvogoGVh1ejsW8nTx5K8V6VkEHWt5F_w';
 
-var usersId = location.search.split('users=')[1];
-
-console.log("id"+usersId)
 let isSubscribed = false;
 let swRegistration = null;
-
-
-
-
 
 //subscriptions functions
 
@@ -224,32 +217,14 @@ function getUsuairio() {
 function insertSubcription(subscription){
     var str = JSON.stringify(subscription);
     var subscriptionObject = JSON.parse(str);
-  //   $.ajax({
-  //     url: "http://localhost:5000/adduser/",
-  //     type: "POST",
-  //     data: data,
-  //     dataType: "json",
-  //     success: function (result) {
-  //         switch (result) {
-  //             case true:
-  //                 processResponse(result);
-  //                 break;
-  //             default:
-  //                 resultDiv.html(result);
-  //         }
-  //     },
-  //     error: function (xhr, ajaxOptions, thrownError) {
-  //     alert(xhr.status);
-  //     alert(thrownError);
-  //     }
-  // });
-  fetch('http://localhost:5000/adduser/', {
+
+  fetch('http://localhost:5000/addSubscription', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      subscription: subscriptionObject
+       subscription_ : subscriptionObject
   
     })
   })

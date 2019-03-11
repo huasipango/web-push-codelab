@@ -1,6 +1,4 @@
-<?php 
-    $user = $_GET['users'];
-?>
+
 <!DOCTYPE html>
 <html>
 <head>
