@@ -59,10 +59,8 @@ app.get("/users/:id", (req,res) => {
 })
 
 app.post("/adduser", (req, res) => {
-
-   
-    var subcription = JSON.stringify(req.body.subscription);
-    console.log("subs"+subcription);
+    var subcription = JSON.stringify(req.body);
+    console.log("subs"+req.body);
     if(subcription){
         pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subcription], (err, rows, fields) => {
             if(err)
@@ -78,12 +76,6 @@ app.post("/adduser", (req, res) => {
     }
 })
 
-app.get("/api/subscriptions", (req,res) => {
-      const queryString = "SELECT usu_subs FROM usuario"
-      pool.query(queryString, (err, rows, fields) => {
-          res.json(rows)
-      })
-  })
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`)
