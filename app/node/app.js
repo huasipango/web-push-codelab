@@ -58,20 +58,20 @@ app.get("/users/:id", (req,res) => {
     //res.end()
 })
 
-app.post("/adduser", (req, res) => {
-    var subcription = JSON.stringify(req.body.subcription);
-    console.log("subs"+subcription);
-    if(subcription){
-        pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subcription], (err, rows, fields) => {
+app.post("/addSubscription", (req, res) => {
+
+    var subscription = JSON.stringify(req.body.subscription_);
+    console.log("subs"+subscription);
+    if(subscription){
+        pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subscription], (err, rows, fields) => {
             if(err)
                 throw err;
             else
                 console.log('Subscription Success')
-                res.send('Subscription Success')
                 res.end()
         })
     }else{
-        res.send('Please subs!');
+        res.send('Please subscribe!');
         res.end();
     }
 })
