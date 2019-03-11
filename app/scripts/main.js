@@ -223,25 +223,43 @@ function getUsuairio() {
 
 function insertSubcription(subscription){
     var str = JSON.stringify(subscription);
-    var data = JSON.parse(str);
-    $.ajax({
-      url: "http://localhost:5000/adduser/",
-      type: "POST",
-      data: data,
-      dataType: "json",
-      success: function (result) {
-          switch (result) {
-              case true:
-                  processResponse(result);
-                  break;
-              default:
-                  resultDiv.html(result);
-          }
-      },
-      error: function (xhr, ajaxOptions, thrownError) {
-      alert(xhr.status);
-      alert(thrownError);
-      }
+    var subscriptionObject = JSON.parse(str);
+  //   $.ajax({
+  //     url: "http://localhost:5000/adduser/",
+  //     type: "POST",
+  //     data: data,
+  //     dataType: "json",
+  //     success: function (result) {
+  //         switch (result) {
+  //             case true:
+  //                 processResponse(result);
+  //                 break;
+  //             default:
+  //                 resultDiv.html(result);
+  //         }
+  //     },
+  //     error: function (xhr, ajaxOptions, thrownError) {
+  //     alert(xhr.status);
+  //     alert(thrownError);
+  //     }
+  // });
+  fetch('http://localhost:5000/adduser/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      subscription: subscriptionObject
+  
+    })
+  })
+  .then((response) => {
+    if (response.status !== 200) {
+      return response.text()
+      .then((responseText) => {
+        throw new Error(responseText);
+      });
+    }
   });
 }
 
