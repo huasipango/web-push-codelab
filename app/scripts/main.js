@@ -24,15 +24,11 @@
 
 
 const pushButton = document.querySelector('.js-push-btn');
-
 const applicationServerPublicKey = 'BB7THvJM3x1rj9vA_10coJD3hC24L2_oXCbLlhJLGs261kQTcNpF28OcvogoGVh1ejsW8nTx5K8V6VkEHWt5F_w';
-
+var idUser = location.search.split('idUser=')[1]
+console.log("id "+idUser)
 let isSubscribed = false;
 let swRegistration = null;
-
-
-
-
 
 //subscriptions functions
 
@@ -220,6 +216,7 @@ function getUsuairio() {
 
 function insertSubcription(subscription){
   var str = JSON.stringify(subscription);
+  
   var subscriptionObject = JSON.parse(str);
 
 fetch('http://localhost:5000/addSubscription', {
@@ -228,7 +225,8 @@ fetch('http://localhost:5000/addSubscription', {
     'Content-Type': 'application/json'
   },
   body: JSON.stringify({
-     subscription_ : subscriptionObject
+     subscription_ : subscriptionObject,
+     id: idUser
 
   })
 })

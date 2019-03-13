@@ -35,35 +35,15 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
   });
-// get users
-app.get("/users/:id", (req,res) => {
 
-    
-
-    console.log("Devolviendo usuario con id: " + req.params.id)
-    
-    const userId = req.params.id
-
-    //simulacion consulta en la db
-    nombre = ""
-    if (userId == 1){
-        nombre = "Santiago"
-
-    }else if (userId == 2){
-        nombre = "Juan"
-    }
-
-    res.json(nombre)
-
-    //res.end()
-})
 
 app.post("/addSubscription", (req, res) => {
 
     var subscription = JSON.stringify(req.body.subscription_);
-    console.log("subs"+subscription);
+    var idUser = parseInt(req.body.id);
+    console.log("id"+idUser);
     if(subscription){
-        pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subscription], (err, rows, fields) => {
+        pool.query('INSERT INTO suscripcion (sus_key,sus_user) VALUES(?,?)', [subscription,idUser], (err, rows, fields) => {
             if(err)
                 throw err;
             else
@@ -75,7 +55,6 @@ app.post("/addSubscription", (req, res) => {
         res.end();
     }
 })
-
 
 app.listen(PORT, () => {
   console.log(`server running on port ${PORT}`)
