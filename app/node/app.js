@@ -35,14 +35,15 @@ app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Credentials', true);
     next();
   });
-// get users
+
 
 app.post("/addSubscription", (req, res) => {
 
     var subscription = JSON.stringify(req.body.subscription_);
-    console.log("subs"+subscription);
+    var idUser = parseInt(req.body.id);
+    console.log("id"+idUser);
     if(subscription){
-        pool.query('INSERT INTO usuario (usu_subs) VALUES(?)', [subscription], (err, rows, fields) => {
+        pool.query('INSERT INTO suscripcion (sus_key,sus_user) VALUES(?,?)', [subscription,idUser], (err, rows, fields) => {
             if(err)
                 throw err;
             else

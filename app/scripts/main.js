@@ -24,9 +24,9 @@
 
 
 const pushButton = document.querySelector('.js-push-btn');
-
 const applicationServerPublicKey = 'BB7THvJM3x1rj9vA_10coJD3hC24L2_oXCbLlhJLGs261kQTcNpF28OcvogoGVh1ejsW8nTx5K8V6VkEHWt5F_w';
-
+var idUser = location.search.split('idUser=')[1]
+console.log("id "+idUser)
 let isSubscribed = false;
 let swRegistration = null;
 
@@ -47,7 +47,7 @@ function urlB64ToUint8Array(base64String) {
   return outputArray;
 }
 
-if ('serviceWorker' in navigator && 'PushManager' in window) {
+if ('serviceWorker' in navigator) {
   console.log('Service Worker and Push is supported');
 
   navigator.serviceWorker.register('sw.js')
@@ -215,26 +215,27 @@ function getUsuairio() {
 ///2) guardar la clave de subcripcion
 
 function insertSubcription(subscription){
-    var str = JSON.stringify(subscription);
-    var subscriptionObject = JSON.parse(str);
-
-  fetch('http://localhost:5000/addSubscription', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-       subscription_ : subscriptionObject
+  var str = JSON.stringify(subscription);
   
-    })
-  })
-  .then((response) => {
-    if (response.status !== 200) {
-      return response.text()
-      .then((responseText) => {
-        throw new Error(responseText);
-      });
-    }
-  });
-}
+  var subscriptionObject = JSON.parse(str);
 
+fetch('http://localhost:5000/addSubscription', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+     subscription_ : subscriptionObject,
+     id: idUser
+
+  })
+})
+.then((response) => {
+  if (response.status !== 200) {
+    return response.text()
+    .then((responseText) => {
+      throw new Error(responseText);
+    });
+  }
+});
+}
