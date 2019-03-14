@@ -24,7 +24,7 @@
 
 
 const pushButton = document.querySelector('.js-push-btn');
-const applicationServerPublicKey = 'BB7THvJM3x1rj9vA_10coJD3hC24L2_oXCbLlhJLGs261kQTcNpF28OcvogoGVh1ejsW8nTx5K8V6VkEHWt5F_w';
+const applicationServerPublicKey = 'BI-92337eA0gvd4VRRjbisZwGRmj1isppTBQWe9fb9Dx9ntVXGMcfmuhBQjGryOL_bIrcRc2sIYty5c3sRUMyVY';
 var idUser = location.search.split('idUser=')[1]
 console.log("id "+idUser)
 let isSubscribed = false;
