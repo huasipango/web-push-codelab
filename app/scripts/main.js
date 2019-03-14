@@ -24,7 +24,7 @@
 
 
 const pushButton = document.querySelector('.js-push-btn');
-const applicationServerPublicKey = 'BI-92337eA0gvd4VRRjbisZwGRmj1isppTBQWe9fb9Dx9ntVXGMcfmuhBQjGryOL_bIrcRc2sIYty5c3sRUMyVY';
+const applicationServerPublicKey = 'BGr8p8O8dZeP3fyabfV_6dxdJ5nslqP1tVXgp3nXK03ySq-dilnae4JB1MaVpAwNuxrjRvB0IxVkTZiDXBNzNJw';
 var idUser = location.search.split('idUser=')[1]
 console.log("id "+idUser)
 let isSubscribed = false;
@@ -50,7 +50,7 @@ function urlB64ToUint8Array(base64String) {
 if ('serviceWorker' in navigator) {
   console.log('Service Worker and Push is supported');
 
-  navigator.serviceWorker.register('./sw.js')
+  navigator.serviceWorker.register('')
   .then(function(swReg) {
     console.log('Service Worker is registered', swReg);
 
